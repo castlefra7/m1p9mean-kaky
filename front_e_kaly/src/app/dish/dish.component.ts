@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dish',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dish.component.scss']
 })
 export class DishComponent implements OnInit {
-
-  constructor() { }
+  @Input() name: String = "";
+  @Input() price: Number = 0.0;
+  
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  select() {
+    console.log(this.name);
+  }
 }
