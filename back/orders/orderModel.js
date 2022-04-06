@@ -11,6 +11,7 @@ const dishSchema = new Schema({
 const orderSchema = new Schema({
     date: {type: Date, default: new Date()},
     details: [dishSchema],
+    user_id: {type: Schema.Types.ObjectId, ref: 'User'},
     totalAmount: Number,
     status:  { type: Number, default: '0' } // 0: ongoing, 1: delivered
 });
