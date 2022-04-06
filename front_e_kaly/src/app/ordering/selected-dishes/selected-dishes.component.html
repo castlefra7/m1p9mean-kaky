@@ -1,0 +1,6 @@
+<div>
+  <div class="dishes">
+    <button (click)="makeOrder()" mat-raised-button color="primary">Commander</button>
+    <app-selected-dish *ngFor="let dish of selectedDishes" (onChangingQuantity)="removeDishIfZero($event)" [dish]="dish"></app-selected-dish>
+  </div>
+</div>

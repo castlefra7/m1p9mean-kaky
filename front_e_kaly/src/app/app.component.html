@@ -1,7 +1,11 @@
-<mat-drawer-container class="main-container">
-  <mat-drawer position="start" class="main-sidenav" mode="side" opened [style.background]="sidecolor">Commandes</mat-drawer>
-  <mat-drawer-content class="main-content" [style.background]="maincolor">
-    <app-dishes></app-dishes>
+<div>
+  <mat-toolbar>
+    <a mat-button [routerLink]="['/']">Accueil</a>
+
+    <a mat-button [routerLink]="['/ordering']">Passer commande</a>
     
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-toolbar>
+  <div id="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
