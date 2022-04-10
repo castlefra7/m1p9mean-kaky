@@ -7,17 +7,25 @@ import { Dish } from '../models/dish.model';
   styleUrls: ['./dish.component.scss']
 })
 export class DishComponent implements OnInit {
-  @Input() dish: Dish = new Dish('', 0.0);
-  @Output() onClicked: EventEmitter<Dish>;
+
+  @Input() dish: Dish = new Dish(-1, '', 0.0);
+  @Output() delete: EventEmitter<Dish>;
+  @Output() modify: EventEmitter<Dish>;
 
   constructor() {
-    this.onClicked = new EventEmitter();
+    this.delete = new EventEmitter();
+    this.modify = new EventEmitter();
   }
 
   ngOnInit(): void {
   }
 
-  clicked(): void {
-    this.onClicked.emit(this.dish);
+  modifyEvent() {
+    this.modify.emit(this.dish);
   }
+
+  deleteEvent() {
+    this.delete.emit(this.dish);
+  }
+
 }

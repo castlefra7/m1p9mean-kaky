@@ -1,0 +1,22 @@
+.dishes {
+    display: flex;
+    gap: 17px;
+    flex-wrap: wrap;
+}
+
+.options {
+    display: flex;
+    margin-bottom: 17px;
+}
+
+.main-sidenav {
+    width: 250px;
+}
+
+.mat-drawer-container {
+    height: 100%;
+}
+
+.main-content {
+    padding: 7px;
+}

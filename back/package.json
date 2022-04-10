@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publishToHeroku": "cd ../ && git subtree push --prefix back heroku main",
+    "publishToHeroku": "cd ../ && git subtree push --prefix back heroku-back main",
     "start": "node app.js"
   },
   "repository": {

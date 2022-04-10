@@ -1,1 +1,14 @@
-<p>list-dishes works!</p>
+<mat-drawer-container class="main-container">
+  <mat-drawer position="start" class="main-sidenav" mode="side" opened [style.background]="sidecolor">
+    <div class="options">
+      <p flex="50"><u>Restaurant</u>: Lang Lang</p>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="main-content" [style.background]="maincolor">
+    <div class="dishes">
+      <app-dish *ngFor="let dish of filteredDishes" [dish]="dish"
+      (modify)="modifyDish($event)" (delete)="deleteDish($event)"></app-dish>
+    </div>
+    
+  </mat-drawer-content>
+</mat-drawer-container>

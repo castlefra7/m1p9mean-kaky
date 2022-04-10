@@ -4,18 +4,38 @@ import { CurrentOrdersComponent } from './current-orders/current-orders.componen
 import { ListDishesComponent } from './list-dishes/list-dishes.component';
 import { ProfitsComponent } from './profits/profits.component';
 import { RestaurantRoutingModule } from './restaurant-routing.module';
+import { DishComponent } from './dish/dish.component';
 
-
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatButtonModule} from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DishFormComponent } from './dish-form/dish-form.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     CurrentOrdersComponent,
     ListDishesComponent,
-    ProfitsComponent
+    ProfitsComponent,
+    DishComponent,
+    DishFormComponent
   ],
   imports: [
     CommonModule,
-    RestaurantRoutingModule
-  ]
+    RestaurantRoutingModule,
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+  ],
+  providers: [FormBuilder]
 })
 export class RestaurantModule { }

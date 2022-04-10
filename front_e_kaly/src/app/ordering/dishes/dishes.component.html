@@ -6,6 +6,6 @@
     </mat-form-field>
   </form>
   <div class="dishes">
-    <app-dish *ngFor="let dish of filteredDishes" [name]="dish.name" [price]="dish.price" (onClicked)="selectedDish($event)"></app-dish>
+    <app-dish *ngFor="let dish of filteredDishes" [dish]="dish" (onClicked)="selectedDish($event)"></app-dish>
   </div>
 </div>
