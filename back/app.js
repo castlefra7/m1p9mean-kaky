@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT;
@@ -8,12 +9,15 @@ const restauApi = require('./restaurants/index.js');
 const userApi = require('./users/index.js');
 const dishApi = require('./dishes/index');
 const orderApi = require('./orders/index');
+
 require('./config/passport');
 
 
 mongoose.connect(process.env.DB_URL)
     .then((data) => {
         
+        
+        app.use(express.static(path.join(__dirname, 'public')));
         app.use(express.urlencoded({extended: true}));
         app.use(express.json());
         app.use('/api', (req, res, next) => {
@@ -23,7 +27,7 @@ mongoose.connect(process.env.DB_URL)
             next();
         });
         app.get('/', function (req, res) {
-            res.send("Home page");
+            res.sendFile(path.join(__dirname, 'public/index.html'));
         });
         app.use('/api/users', userApi);
         app.use(passport.initialize());
