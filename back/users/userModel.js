@@ -7,7 +7,8 @@ const userSchema = new Schema({
     name: {type: String, unique: true, required: true},
     hash: String,
     salt: String,
-    roles: []
+    role: {type: Number, default: 1}, // 0: E-kaly, 1: customer, 2: restaurant, 3: delivery guy
+    restau_id: {type: Schema.Types.ObjectId, ref: 'Restaurant', unique: true}
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -23,7 +24,7 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.generateJwt = function() {
     const expiry = new Date();
     expiry.setDate(expiry.getDate() + 7);
-    return jwt.sign({_id: this._id, name: this.name, exp: parseInt(expiry.getTime() / 1000, 10)}, process.env.JWT_SECRET)
+    return jwt.sign({_id: this._id, name: this.name, role: this.role, restau_id: this.restau_id, exp: parseInt(expiry.getTime() / 1000, 10)}, process.env.JWT_SECRET)
 }
 
 const User = mongoose.model('User', userSchema);

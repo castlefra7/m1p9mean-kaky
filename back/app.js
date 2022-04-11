@@ -4,8 +4,9 @@ const app = express();
 const PORT = process.env.PORT;
 const mongoose = require('mongoose');
 const passport = require('passport');
-const userApi = require('./users/index.js');
 const restauApi = require('./restaurants/index.js');
+const userApi = require('./users/index.js');
+const dishApi = require('./dishes/index');
 const orderApi = require('./orders/index');
 require('./config/passport');
 
@@ -26,6 +27,7 @@ mongoose.connect(process.env.DB_URL)
         
         app.use('/api/restaurants', restauApi);
         app.use('/api/orders', orderApi);
+        app.use('/api/dishes', dishApi);
 
         app.get('/', function (req, res) {
             res.send("Home page");

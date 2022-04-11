@@ -1,37 +1,27 @@
 var express = require('express');
 var router = express.Router();
-
-router.get('/', function (req, res) {
-  res.send('List of restaurants');
+const Restaurant = require('./restaurantModel');
+const jwt = require('express-jwt');
+const auth = jwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: 'payload',
+  algorithms: ['HS256']
 });
 
-router.get('/orders', function (req, res) {
-  res.send('List of orders');
+router.get('/', auth, function (req, res) {
+  Restaurant.find(function (err, found) {
+    if (err) return res.status(404).json(err);
+    if (found) res.status(200).json(found);
+  })
 });
 
-router.post('/dishes', function (req, res) {
-  res.send('Create new dishe');
-});
-
-router.get('/dishes', function (req, res) {
-  res.send('List of dishes');
-});
-
-router.get('/dishes/:id', function (req, res) {
-  res.send('List of dishes');
-});
-
-router.put('/dishes/:id', function (req, res) {
-  res.send('delete a dishe');
-});
-
-router.delete('/dishes/:id', function(req, res) {
-  // req.params.id
-  res.send("Delete a dish");
-});
-
-router.get('/profits', function(req, res) {
-  res.send("Profits");
-});
+router.post('/', auth, function (req, res) {
+  if (req.payload && req.payload.name) {
+    const newRestau = new Restaurant(req.body);
+    newRestau.save().then(data => res.status(200).send(data)).catch(err => res.status(500).send(err));
+  } else res.status(404).json({
+    "message": "User not found"
+  });
+})
 
 module.exports = router;
