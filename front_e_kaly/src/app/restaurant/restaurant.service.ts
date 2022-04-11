@@ -13,6 +13,32 @@ export interface Profit {
     amount: number
 }
 
+export interface OrderDetail {
+    dish_id: String;
+    name: String;
+    price: number;
+    quantity: number;
+    restau_id: String;
+    status: number;
+    _id: String;
+    amount: number;
+}
+
+export interface Order {
+    details: OrderDetail[];
+    user_id: String;
+    totalAmount: number;
+    date: Date;
+}
+
+export interface OrderRow {
+    date: Date;
+    price: number;
+    name: String;
+    amount: number;
+    status: number;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -91,6 +117,18 @@ export class RestaurantService {
         };
         return this.http.get<Profit[]>(
             `${environment.url}/orders/amounts?restau-id=${this.auth.restauId()}`,
+            options);
+    }
+
+    getAllCurrOrders(): Observable<Order[]>{
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        };
+        return this.http.get<Order[]>(
+            `${environment.url}/orders?status=0&restau-id=${this.auth.restauId()}`,
             options);
     }
 }

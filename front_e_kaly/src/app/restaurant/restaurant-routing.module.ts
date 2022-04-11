@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { Routes, RouterModule } from '@angular/router';
+import { CurrentOrdersComponent } from './current-orders/current-orders.component';
 import { DishFormComponent } from './dish-form/dish-form.component';
 import { ListDishesComponent } from './list-dishes/list-dishes.component';
 import { ProfitsComponent } from './profits/profits.component';
@@ -21,6 +22,9 @@ const routes: Routes = [
   {
       path: 'add',
       component: DishFormComponent
+  }, {
+      path: 'current',
+      component: CurrentOrdersComponent
   }
 ];
 

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {findByStatus, findByStatusAndRest, findAll, getProfits, makeOrder} = require('./controllers');
+const {findByStatus, findByStatusAndRest, findAll, getProfits, makeOrder, updateDetailOrder} = require('./controllers');
 
 const jwt = require('express-jwt');
 const auth = jwt({
@@ -37,6 +37,10 @@ router.post('/', auth, function (req, res) {
     "message": "User not found"
   })
 
+});
+
+router.put('/:order_id/details/:dish_id/status', auth, function(req, res) {
+    updateDetailOrder(req, res);
 });
 
 

@@ -37,7 +37,9 @@ export class AuthService {
 
   name(): String {
     var auth = JSON.parse(localStorage.getItem('auth')!);
+    if(auth != null)
     return auth.name;
+    return "";
   }
 
   logout(): void {

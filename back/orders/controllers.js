@@ -115,10 +115,28 @@ const makeOrder = (req, res) => {
         });
 }
 
+
+const updateDetailOrder = (req, res) => {
+    Order.findById(req.params.order_id).exec((err, order) => {
+        order.details.forEach(detail => {
+          if(detail.dish_id.toString() === req.params.dish_id) {
+              detail.status = 1;
+          }
+        });
+
+        order.save((err, sOrder) => {
+            if (err) res.status(404).json(err);
+            else res.status(200).json(sOrder);
+        });
+
+    });
+}
+
 module.exports = {
     findByStatusAndRest,
     findByStatus,
     findAll,
     getProfits,
-    makeOrder
+    makeOrder,
+    updateDetailOrder
 }
