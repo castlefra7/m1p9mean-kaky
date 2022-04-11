@@ -3,7 +3,7 @@ const {Schema} = mongoose;
 
 const dishSchema = new Schema({
     name: {type: String, required: true},
-    price: {type: Number, required: true},
+    price: {type: Number, required: true, min: 100},
     restau_id: {type: Schema.Types.ObjectId, ref: 'Restaurant'},
     created_date: {type: Date, default: new Date()}
 });

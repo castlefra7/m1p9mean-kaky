@@ -26,4 +26,5 @@ export interface OrderRow {
     name: string;
     amount: number;
     status: number;
+    quantity: number;
 }

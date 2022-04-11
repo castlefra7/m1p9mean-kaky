@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
     loading = false;
 
     orders: OrderRow[] = [];
-    ordersColumns: string[] = ['date', 'name', 'price', 'amount', 'status', 'action'];
+    ordersColumns: string[] = ['date', 'name', 'price', 'amount', 'quantity', 'action'];
     
     constructor(private deService: DeliverService, public auth: AuthService) {
     }
@@ -36,7 +36,8 @@ export class MainComponent implements OnInit {
                             date: new Date(order.date),
                             status: detail.status,
                             dish_id: detail.dish_id,
-                            order_id: order._id
+                            order_id: order._id,
+                            quantity: detail.quantity
                         } as OrderRow);
                     })
                 });

@@ -2,7 +2,7 @@
   <mat-card-title>
     {{dish.name}}
   </mat-card-title>
-  <p>Prix: {{dish.price}}</p>
+  <p>Prix: {{dish.price | number}} Ar</p>
   <mat-card-actions>
     <div class="full-width">
       <button (click)="increase()" mat-raised-button color="accent">+</button>
