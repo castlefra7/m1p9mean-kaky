@@ -1,10 +1,26 @@
 <mat-drawer-container class="main-container">
   <mat-drawer position="start" class="main-sidenav" mode="side" opened [style.background]="sidecolor">
-      <p>Client: {{auth.name() | uppercase}}</p>
-    <app-selected-dishes [selectedDishes]="selectedDishes"></app-selected-dishes>
+    <p>Client: {{auth.name() | uppercase}}</p>
+
+    <button (click)="makeOrder()" mat-raised-button color="primary">Commander</button>
+    <div cdkDropList #sltDishes="cdkDropList" [cdkDropListData]="selectedDishes" [cdkDropListConnectedTo]="[filtDishes]"
+      (cdkDropListDropped)="drop($event)" class="dishes">
+
+      <app-selected-dish *ngFor="let dish of selectedDishes" (onChangingQuantity)="removeDishIfZero($event)"
+        [dish]="dish" cdkDrag></app-selected-dish>
+    </div>
   </mat-drawer>
   <mat-drawer-content class="main-content" [style.background]="maincolor">
-    <app-dishes [dishes]="dishes" [filteredDishes]="filteredDishes" [selectedDishes]="selectedDishes"></app-dishes>
-    <mat-progress-spinner diameter="50" mode="indeterminate" *ngIf="loading" ></mat-progress-spinner>
+    <div>
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>Recherche plat</mat-label>
+        <input matInput name="dishname" [(ngModel)]="dishname" (input)="filter()" placeholder="Ex. Pizza">
+      </mat-form-field>
+    </div>
+    <div cdkDropList #filtDishes="cdkDropList" [cdkDropListData]="filteredDishes" [cdkDropListConnectedTo]="[sltDishes]"
+      (cdkDropListDropped)="drop($event)" class="dishes">
+      <app-dish *ngFor="let dish of filteredDishes" [dish]="dish" (onClicked)="selectedDish($event)" cdkDrag></app-dish>
+    </div>
+    <mat-progress-spinner diameter="50" mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
   </mat-drawer-content>
 </mat-drawer-container>

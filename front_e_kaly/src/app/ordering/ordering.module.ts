@@ -11,9 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { DishComponent } from './dish/dish.component';
-import { DishesComponent } from './dishes/dishes.component';
 import { SelectedDishComponent } from './selected-dish/selected-dish.component';
-import { SelectedDishesComponent } from './selected-dishes/selected-dishes.component';
 import { OrderingRoutingModule } from './ordering-routing.module';
 import { OrderingService } from './ordering.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,9 +21,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   declarations: [
     MainComponent,
     DishComponent,
-    DishesComponent,
-    SelectedDishComponent,
-    SelectedDishesComponent,
+    SelectedDishComponent
   ],
 
   imports: [
