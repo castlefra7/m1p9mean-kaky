@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Dish } from '../models/dish.model';
+import { OrderingService } from '../ordering.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class SelectedDishesComponent implements OnInit {
   cardcolor: String = "blue";
   dishname: string = "";
 
-  constructor() {
+  constructor(private orderService: OrderingService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +28,25 @@ export class SelectedDishesComponent implements OnInit {
   }
 
   makeOrder(): void {
-    console.log(this.selectedDishes);
+    this.orderService.makeOrder(this.selectedDishes).subscribe({
+        next: (v) => {
+            let details = "";
+            v.details.forEach((detail) => {
+                details += `${detail.name} | ${detail.quantity} | ${detail.amount}\n`;
+            })
+            alert(`
+Commande effectué avec succès
+Total: ${v.totalAmount}
+Details:
+Nom | Quantité | Montant
+${details}
+            `)
+        },
+        error: (e) => console.error(e),
+        complete: () => {
+            this.selectedDishes.splice(0);
+        }
+    });
   }
 
 }

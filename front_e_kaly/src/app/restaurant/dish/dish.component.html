@@ -6,7 +6,7 @@
         Prix: {{dish.price}}
     </mat-card-content>
     <mat-card-footer>
-        <a mat-raised-button color="accent" [routerLink]="['form/', dish.id]">Modifier</a>
+        <a mat-raised-button color="accent" [routerLink]="['form/', dish._id]">Modifier</a>
         <button mat-raised-button color="warn" (click)="deleteEvent()">Supprimer</button>
     </mat-card-footer>
 </mat-card>

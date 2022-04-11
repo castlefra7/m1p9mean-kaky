@@ -15,8 +15,8 @@ import { DishesComponent } from './dishes/dishes.component';
 import { SelectedDishComponent } from './selected-dish/selected-dish.component';
 import { SelectedDishesComponent } from './selected-dishes/selected-dishes.component';
 import { OrderingRoutingModule } from './ordering-routing.module';
-
-
+import { OrderingService } from './ordering.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,9 @@ import { OrderingRoutingModule } from './ordering-routing.module';
     DragDropModule,
     MatInputModule,
     FormsModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    HttpClientModule
+  ],
+  providers: [OrderingService]
 })
 export class OrderingModule { }

@@ -26,6 +26,9 @@ router.post('/login', function (req, res) {
     if (user) {
       token = user.generateJwt();
       res.status(200).json({
+        role: user.role,
+        name: user.name,
+        restau_id: user.restau_id,
         token
       });
     } else res.status(401).json(info);
@@ -45,6 +48,9 @@ router.post('/register', function (req, res) {
     if (err) return res.status(404).json(err);
     const token = user.generateJwt();
     res.status(200).json({
+      role: user.role,
+      name: user.name,
+      restau_id: user.restau_id,
       token
     });
 

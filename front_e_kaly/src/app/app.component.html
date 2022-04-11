@@ -1,11 +1,21 @@
 <div>
   <mat-toolbar>
-    <a mat-button [routerLink]="['/']">Accueil</a>
+    
+    <div *ngIf="auth.isLogged()">
+        <a mat-button [routerLink]="['/']">Accueil</a>
+        <a mat-button *ngIf="auth.isCustomer()" [routerLink]="['/ordering']">Passer commande</a>
+        <a mat-button *ngIf="auth.isRestaurant()" [routerLink]="['/restaurant']">Espace restaurant</a>
+        <a mat-button *ngIf="auth.isDeliver()" [routerLink]="['/deliver']">Espace livreur</a>
+        <a mat-button *ngIf="auth.isAdmin()" [routerLink]="['/admin']">Administration E-Kaly</a>
+    </div>
 
-    <a mat-button [routerLink]="['/ordering']">Passer commande</a>
-    <a mat-button [routerLink]="['/restaurant']">Espace restaurant</a>
-    <a mat-button [routerLink]="['/ordering']">Espace livreur</a>
-    <a mat-button [routerLink]="['/ordering']">Administration E-Kaly</a>
+    <div *ngIf="!auth.isLogged()">
+        <a mat-button [routerLink]="['/signin']">Se connecter</a>
+    </div>
+    
+    <div *ngIf="auth.isLogged()">
+        <button mat-button [routerLink]="['/signin']" (click)="auth.logout()">Se déconnecter</button>
+    </div>
     
   </mat-toolbar>
   <div id="main-content">

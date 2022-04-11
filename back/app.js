@@ -17,11 +17,14 @@ mongoose.connect(process.env.DB_URL)
         app.use(express.urlencoded({extended: true}));
         app.use(express.json());
         app.use('/api', (req, res, next) => {
-            res.header('Access-Control-Allow-Origin', `http://localhost:${PORT}`);
+            res.header('Access-Control-Allow-Origin', `*`);
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With,Content-Type, Accept, Authorization');
+            res.header('Access-Control-Allow-Methods', '*');
             next();
         });
-
+        app.get('/', function (req, res) {
+            res.send("Home page");
+        });
         app.use('/api/users', userApi);
         app.use(passport.initialize());
         
@@ -29,9 +32,7 @@ mongoose.connect(process.env.DB_URL)
         app.use('/api/orders', orderApi);
         app.use('/api/dishes', dishApi);
 
-        app.get('/', function (req, res) {
-            res.send("Home page");
-        });
+
 
         app.use((err, req, res, next) => {
             console.error(err);

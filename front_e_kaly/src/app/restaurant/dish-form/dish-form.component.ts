@@ -1,42 +1,68 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Dish } from '../models/dish.model';
-import { RestaurantService } from '../services/restaurant.service';
+import { RestaurantService } from '../restaurant.service';
 
 @Component({
-  selector: 'app-dish-form',
-  templateUrl: './dish-form.component.html',
-  styleUrls: ['./dish-form.component.scss']
+    selector: 'app-dish-form',
+    templateUrl: './dish-form.component.html',
+    styleUrls: ['./dish-form.component.scss']
 })
 export class DishFormComponent implements OnInit {
-  dishForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    price: new FormControl(''),
-  });
-  id: number = -1;
+    dishForm: FormGroup = new FormGroup({
+        name: new FormControl(''),
+        price: new FormControl(''),
+    });
+    id: String = "";
+    isUpdate: boolean = false;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private restauService: RestaurantService) {
-    route.params.subscribe(params => {
-      const id = params['id'];
-      const currDish = restauService.getDish(id);
-      this.id = currDish.id;
-      this.dishForm.patchValue({
-        name: currDish.name,
-        price: currDish.price
-      });
-      console.log(currDish)
-    })
-  }
+    constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private restauService: RestaurantService) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.route.params.subscribe(params => {
+            const id = params['id'];
+            if (id) {
+                this.isUpdate = true;
+                this.restauService.getDish(id).subscribe({
+                    next: (v) => {
+                        this.id = v._id;
+                        this.dishForm.patchValue({
+                            name: v.name,
+                            price: v.price
+                        });
+                    },
+                    error: (e) => console.error(e),
+                    complete: () => console.info('complete')
+                })
+            }
+        })
+    }
 
-  onSubmit(): void {
-    const value = this.dishForm.value;
-    const newDish = new Dish(this.id, value.name, value.price);
+    onSubmit(): void {
+        const { name, price } = this.dishForm.value;
+        const newDish = new Dish(this.id, name, price);
 
-    this.restauService.insertDish(newDish);
-  }
+        if (this.isUpdate) {
+            this.restauService.updateDish(newDish).subscribe({
+                next: (v) => {
+                    console.log(v);
+                    this.router.navigateByUrl('/restaurant');
+                },
+                error: (e) => console.error(e),
+                complete: () => console.info('complete')
+            })
+        } else {
+            this.restauService.insertDish(newDish).subscribe({
+                next: (v) => {
+                    console.log(v);
+                    this.router.navigateByUrl('/restaurant');
+                },
+                error: (e) => console.error(e),
+                complete: () => console.info('complete')
+            })
+        }
+    }
 
 }

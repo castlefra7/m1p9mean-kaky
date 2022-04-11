@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 
 
@@ -10,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front_e_kaly';
-  constructor() {
+  constructor(public auth: AuthService) {
 
   }
 

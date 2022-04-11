@@ -4,10 +4,10 @@ export class Dish {
     name: String = "";
     price: number = 0.0;
     quantity: number = 0.0;
-    id: number = -1;
+    _id: String = "";
 
-    constructor(id: number, name: String, price: number) {
-        this.id = id;
+    constructor(_id: String, name: String, price: number) {
+        this._id = _id;
         this.name =  name;
         this.price = price;
     }

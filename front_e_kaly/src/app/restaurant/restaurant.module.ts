@@ -15,6 +15,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { RestaurantService } from './restaurant.service';
+import { HttpClientModule } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    MatTableModule
   ],
-  providers: [FormBuilder]
+  providers: [FormBuilder, RestaurantService]
 })
 export class RestaurantModule { }

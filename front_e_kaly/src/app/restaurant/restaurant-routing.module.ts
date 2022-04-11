@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'form/:id',
     component: DishFormComponent
+  },
+  {
+      path: 'add',
+      component: DishFormComponent
   }
 ];
 

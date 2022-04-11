@@ -1,6 +1,7 @@
 <div class="dish-form">
   <form [formGroup]="dishForm"  (ngSubmit)="onSubmit()">
-    <h2>Modification plat</h2>
+    <h2 *ngIf="isUpdate">Modification plat</h2>
+    <h2 *ngIf="!isUpdate">Nouveau plat</h2>
     <a mat-raised-button [routerLink]="['/restaurant']">Retour</a>
   
     <p>
@@ -12,7 +13,7 @@
     <p>
       <mat-form-field appearance="standard">
         <mat-label>Prix</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="price">
+        <input matInput type="number" placeholder="Placeholder" formControlName="price">
       </mat-form-field>
     </p>
     <p>

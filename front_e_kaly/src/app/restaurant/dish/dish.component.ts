@@ -8,7 +8,7 @@ import { Dish } from '../models/dish.model';
 })
 export class DishComponent implements OnInit {
 
-  @Input() dish: Dish = new Dish(-1, '', 0.0);
+  @Input() dish: Dish = new Dish('', '', 0.0);
   @Output() delete: EventEmitter<Dish>;
   @Output() modify: EventEmitter<Dish>;
 

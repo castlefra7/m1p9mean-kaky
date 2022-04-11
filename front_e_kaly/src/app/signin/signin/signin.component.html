@@ -1,0 +1,23 @@
+<div class="dish-form">
+    <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+      <h2>Se connecter</h2>
+    
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="nom..." formControlName="name">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" placeholder="mot de passe..." formControlName="password">
+        </mat-form-field>
+      </p>
+      <p>
+        <button mat-raised-button color='primary'>Valider</button>
+        <button mat-raised-button>Annuler</button>
+      </p>
+    </form>
+    
+  </div>

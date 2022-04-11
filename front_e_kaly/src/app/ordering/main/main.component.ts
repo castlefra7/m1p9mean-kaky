@@ -1,42 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../models/dish.model';
+import { OrderingService } from '../ordering.service';
 export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
+    color: string;
+    cols: number;
+    rows: number;
+    text: string;
 }
 
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  sidecolor = '';
-  maincolor = '';
+    sidecolor = '';
+    maincolor = '';
+    dishes: Dish[] = [];
+    filteredDishes: Dish[] = [];
+    selectedDishes: Dish[] = [];
+    constructor(private orderService: OrderingService) {
 
-  tiles: Tile[] = [
-    { text: 'One', cols: 3, rows: 2, color: 'lightblue' },
-    { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
-    // { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-    // { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
-  ];
-  dishes: Dish[] = [];
-  filteredDishes: Dish[] = [];
-  selectedDishes: Dish[] = [];
-  
-  ngOnInit(): void {
-  }
-
-
-  constructor() {
-    this.dishes = [];
-    for (let i = 0; i < 20; i++) {
-      const price = Math.random() * 30000 + 10000;
-      this.dishes.push(new Dish(`Plat ${i + 1}`, price));
     }
-    this.filteredDishes = Object.assign([], this.dishes);
-  }
+
+    ngOnInit(): void {
+        this.orderService.getAllDishes().subscribe({
+            next: (v) => {
+                this.dishes = v;
+                this.filteredDishes = Object.assign([], v);
+            },
+            error: (e) => console.error(e),
+            complete: () => console.info('complete')
+        });
+    }
 }
