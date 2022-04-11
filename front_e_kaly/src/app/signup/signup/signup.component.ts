@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
-    selector: 'app-signin',
-    templateUrl: './signin.component.html',
-    styleUrls: ['./signin.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class SigninComponent implements OnInit {
+export class SignupComponent implements OnInit {
+
     form: FormGroup;
 
     constructor(private auth: AuthService, private fb: FormBuilder, private route: Router) {
@@ -23,11 +24,13 @@ export class SigninComponent implements OnInit {
 
     onSubmit(): void {
         const { name, password } = this.form.value;
-        this.auth.login(name, password).subscribe(
+        this.auth.signup(name, password).subscribe(
             {
                 next: (v) => {
+                    console.log(v);
                     localStorage.setItem("auth", JSON.stringify(v));
                     localStorage.setItem("token", v.token);
+                    console.log(v);
                     if (v.role === 0) {
                         this.route.navigateByUrl('/admin');
                     } else if (v.role === 1) {
@@ -38,7 +41,14 @@ export class SigninComponent implements OnInit {
                         this.route.navigateByUrl('/deliver');
                     }
                 },
-                error: (e) => alert(e.error.message),
+                error: (e) => {
+                    console.log(e);
+                    if(e.error.message)
+                    alert(e.error.message);
+                    else {
+                        if(e.error.code === 11000) alert("Ce nom d'utilisateur est déjà pris.");
+                    }
+                },
                 complete: () => console.info('complete')
             }
         );

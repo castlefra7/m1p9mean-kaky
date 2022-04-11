@@ -12,12 +12,15 @@ export class ListDishesComponent implements OnInit {
     sidecolor = '';
     maincolor = '';
     filteredDishes: Dish[] = [];
-    
+    loading_1 = false;
+    loading_2 = false;
+    loading_3 = false;
+
     profits: Profit[] = [];
     profitsColumns: string[] = ['name', 'amount'];
     
     orders: OrderRow[] = [];
-    ordersColumns: string[] = ['date', 'name', 'price', 'amount', 'status'];
+    ordersColumns: string[] = ['date', 'name', 'price', 'amount', 'quantity'];
     
     isDishes = true;
 
@@ -26,12 +29,14 @@ export class ListDishesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loading_1 = true;
+        this.loading_2 = true;
         this.restauService.getAllDishes().subscribe({
             next: (v) => {
                 this.filteredDishes = v;
             },
             error: (e) => console.error(e),
-            complete: () => console.info('complete')
+            complete: () => this.loading_1 = false
         });
 
         this.restauService.getAllProfits().subscribe({
@@ -39,7 +44,7 @@ export class ListDishesComponent implements OnInit {
                 this.profits = v;
             },
             error: (e) => console.error(e),
-            complete: () => console.info('complete')
+            complete: () => this.loading_2 = false
         })
 
         this.restauService.getAllCurrOrders().subscribe({
@@ -52,7 +57,8 @@ export class ListDishesComponent implements OnInit {
                             price: detail.price,
                             amount: detail.amount,
                             date: new Date(order.date),
-                            status: detail.status
+                            status: detail.status,
+                            quantity: detail.quantity
                         } as OrderRow);
                     });
                 });
@@ -68,6 +74,7 @@ export class ListDishesComponent implements OnInit {
     }
 
     deleteDish(dish: Dish) {
+        this.loading_3 = true;
         this.restauService.deleteDish(dish._id).subscribe({
             next: (v) => {
                 this.restauService.getAllDishes().subscribe({
@@ -75,7 +82,7 @@ export class ListDishesComponent implements OnInit {
                         this.filteredDishes = v;
                     },
                     error: (e) => console.error(e),
-                    complete: () => console.info('complete')
+                    complete: () => this.loading_3 = false
                 });
             },
             error: (e) => {

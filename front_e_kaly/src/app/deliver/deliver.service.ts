@@ -17,7 +17,7 @@ export class DeliverService {
     }
 
 
-    updateStatus(order_id: String, dish_id: String): Observable<Order> {
+    updateStatus(order_id: string, dish_id: string): Observable<Order> {
         const options = {
             headers: {
                 "Content-Type": "application/json",

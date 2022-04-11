@@ -9,6 +9,7 @@ import { DeliverService } from '../deliver.service';
     styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+    loading = false;
 
     orders: OrderRow[] = [];
     ordersColumns: string[] = ['date', 'name', 'price', 'amount', 'status', 'action'];
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit {
     }
 
     fetch(): void {
+        this.loading = true;
         this.deService.getAllOrders().subscribe({
             next: (v) => {
                 const nOrders = [] as OrderRow[];
@@ -41,17 +43,18 @@ export class MainComponent implements OnInit {
                 this.orders = Object.assign([], nOrders);
             },
             error: (e) => console.error(e),
-            complete: () => console.info('complete')
+            complete: () => this.loading = false
         })
     }
 
-    updateStatus(order_id: String, dish_id: String) {
+    updateStatus(order_id: string, dish_id: string) {
+        this.loading = true;
         this.deService.updateStatus(order_id, dish_id).subscribe({
             next: (v) => {
                 this.fetch();
             },
             error: (e) => console.error(e),
-            complete: () => console.info('complete')
+            complete: () => this.loading = false
         })
     }
 

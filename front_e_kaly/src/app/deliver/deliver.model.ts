@@ -1,29 +1,29 @@
 export interface OrderDetail {
-    dish_id: String;
-    name: String;
+    dish_id: string;
+    name: string;
     price: number;
     quantity: number;
-    restau_id: String;
+    restau_id: string;
     status: number;
-    _id: String;
+    _id: string;
     amount: number;
 }
 
 export interface Order {
     details: OrderDetail[];
-    user_id: String;
+    user_id: string;
     totalAmount: number;
     date: Date;
-    _id: String;
+    _id: string;
 }
 
 
 export interface OrderRow {
-    dish_id: String;
-    order_id: String;
+    dish_id: string;
+    order_id: string;
     date: Date;
     price: number;
-    name: String;
+    name: string;
     amount: number;
     status: number;
 }

@@ -30,12 +30,24 @@ export class AuthService {
       , options);
   }
 
-  restauId(): String {
+  signup(name: string, password: string): Observable<Auth> {
+    const options = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      return this.http.post<Auth>(
+        `${environment.url}/users/register`,
+        { name, password, role: 1 }
+        , options);
+  }
+
+  restauId(): string {
     var auth = JSON.parse(localStorage.getItem('auth')!);
     return auth.restau_id;
   }
 
-  name(): String {
+  name(): string {
     var auth = JSON.parse(localStorage.getItem('auth')!);
     if(auth != null)
     return auth.name;

@@ -17,6 +17,7 @@ router.get('/', auth, function (req, res) {
 
 router.post('/', auth, function (req, res) {
   if (req.payload && req.payload.name) {
+    // TODO: only admin can create restaurant
     const newRestau = new Restaurant(req.body);
     newRestau.save().then(data => res.status(200).send(data)).catch(err => res.status(500).send(err));
   } else res.status(404).json({

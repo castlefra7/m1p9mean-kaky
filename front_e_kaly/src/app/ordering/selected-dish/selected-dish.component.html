@@ -3,14 +3,11 @@
     {{dish.name}}
   </mat-card-title>
   <p>Prix: {{dish.price}}</p>
-  <mat-card-footer>
-    
+  <mat-card-actions>
     <div class="full-width">
       <button (click)="increase()" mat-raised-button color="accent">+</button>
-
       <input disabled matInput type="number" [value]="dish.quantity">
-
       <button (click)="decrease()" mat-raised-button color="accent">-</button>
     </div>
-  </mat-card-footer>
+  </mat-card-actions>
 </mat-card>

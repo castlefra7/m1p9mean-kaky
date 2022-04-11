@@ -10,7 +10,7 @@ import { OrderingService } from '../ordering.service';
 })
 export class SelectedDishesComponent implements OnInit {
   @Input() selectedDishes: Dish[] = [];
-  cardcolor: String = "blue";
+  cardcolor: string = "blue";
   dishname: string = "";
 
   constructor(private orderService: OrderingService) {
@@ -42,7 +42,7 @@ Nom | Quantité | Montant
 ${details}
             `)
         },
-        error: (e) => console.error(e),
+        error: (e) => alert(e.error.message),
         complete: () => {
             this.selectedDishes.splice(0);
         }

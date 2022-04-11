@@ -10,9 +10,14 @@ const auth = jwt({
 });
 
 router.get('/', auth, function (req, res) {
+    //TODO: if role is restaurant then get restau-id from req.payload.restau_id
     const query = {};
     if (req.query['restau-id']) {
         query['restau_id'] = req.query['restau-id'];
+    }
+
+    if(req.payload && req.payload.role == 2 && req.payload.restau_id) {
+        query['restau_id'] = req.payload.restau_id;
     }
 
     Dish.find(query, function (err, data) {
@@ -32,8 +37,11 @@ router.get('/:dish_id', auth, function (req, res) {
             "message": err
         });
         if (!req.payload.restau_id) return res.status(404).json({"message": "You don't have permission"});
-        if(req.payload.restau_id !== data.restau_id.toString()) return res.status(404).json({"message": "You don't have permission"});
-        if (data) res.status(200).send(data);
+        
+        if (data){
+            if(req.payload.restau_id !== data.restau_id.toString()) return res.status(404).json({"message": "You don't have permission"});
+            res.status(200).send(data);
+        } 
         else res.status(404).json({
             "messsage": "Empty data"
         });

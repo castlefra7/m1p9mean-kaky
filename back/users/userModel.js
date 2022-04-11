@@ -8,7 +8,7 @@ const userSchema = new Schema({
     hash: String,
     salt: String,
     role: {type: Number, default: 1}, // 0: E-kaly, 1: customer, 2: restaurant, 3: delivery guy
-    restau_id: {type: Schema.Types.ObjectId, ref: 'Restaurant', unique: true}
+    restau_id: {type: Schema.Types.ObjectId, ref: 'Restaurant'}
 });
 
 userSchema.methods.setPassword = function (password) {

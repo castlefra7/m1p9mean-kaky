@@ -17,6 +17,7 @@ import { SelectedDishesComponent } from './selected-dishes/selected-dishes.compo
 import { OrderingRoutingModule } from './ordering-routing.module';
 import { OrderingService } from './ordering.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [OrderingService]
 })

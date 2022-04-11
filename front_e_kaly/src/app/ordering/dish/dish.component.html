@@ -1,8 +1,6 @@
 <mat-card (click)="clicked()">
-    <mat-card-title>
-        {{dish.name}}
-    </mat-card-title>
-    <mat-card-footer>
-        Prix: {{dish.price}}
-    </mat-card-footer>
+    <mat-card-content>
+        <p><strong>{{dish.name | uppercase}}</strong></p>
+        <p>Prix: {{dish.price | number}} Ar</p>
+    </mat-card-content>
 </mat-card>

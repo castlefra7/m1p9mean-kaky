@@ -14,7 +14,7 @@ export class DishFormComponent implements OnInit {
         name: new FormControl(''),
         price: new FormControl(''),
     });
-    id: String = "";
+    id: string = "";
     isUpdate: boolean = false;
 
     constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private restauService: RestaurantService) {

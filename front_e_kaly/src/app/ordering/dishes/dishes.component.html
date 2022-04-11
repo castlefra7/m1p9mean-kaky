@@ -1,10 +1,10 @@
 <div>
-  <form class="example-form">
-    <mat-form-field style="width: 100%" appearance="fill">
+  <div>
+    <mat-form-field appearance="standard" style="width: 100%">
       <mat-label>Plat</mat-label>
-      <input name="dishname" [(ngModel)]="dishname" (input)="filter()" matInput placeholder="Ex. Pizza">
+      <input matInput name="dishname" [(ngModel)]="dishname" (input)="filter()" placeholder="Ex. Pizza">
     </mat-form-field>
-  </form>
+  </div>
   <div class="dishes">
     <app-dish *ngFor="let dish of filteredDishes" [dish]="dish" (onClicked)="selectedDish($event)"></app-dish>
   </div>

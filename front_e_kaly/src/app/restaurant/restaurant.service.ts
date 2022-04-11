@@ -8,25 +8,25 @@ import { Dish } from './models/dish.model';
 
 
 export interface Profit {
-    restau_id: String,
-    name: String,
+    restau_id: string,
+    name: string,
     amount: number
 }
 
 export interface OrderDetail {
-    dish_id: String;
-    name: String;
+    dish_id: string;
+    name: string;
     price: number;
     quantity: number;
-    restau_id: String;
+    restau_id: string;
     status: number;
-    _id: String;
+    _id: string;
     amount: number;
 }
 
 export interface Order {
     details: OrderDetail[];
-    user_id: String;
+    user_id: string;
     totalAmount: number;
     date: Date;
 }
@@ -34,9 +34,10 @@ export interface Order {
 export interface OrderRow {
     date: Date;
     price: number;
-    name: String;
+    name: string;
     amount: number;
     status: number;
+    quantity: number;
 }
 
 @Injectable({
@@ -56,7 +57,7 @@ export class RestaurantService {
             }
         };
         return this.http.get<Dish[]>(
-            `${environment.url}/dishes?restau-id=${this.auth.restauId()}`,
+            `${environment.url}/dishes?`,
             options);
     }
 
@@ -84,7 +85,7 @@ export class RestaurantService {
             options);
     }
 
-    deleteDish(id: String): Observable<string>  {
+    deleteDish(id: string): Observable<string>  {
         const options = {
             headers: {
                 "Content-Type": "application/json",
@@ -116,7 +117,7 @@ export class RestaurantService {
             }
         };
         return this.http.get<Profit[]>(
-            `${environment.url}/orders/amounts?restau-id=${this.auth.restauId()}`,
+            `${environment.url}/orders/amounts?`,
             options);
     }
 
@@ -128,7 +129,7 @@ export class RestaurantService {
             }
         };
         return this.http.get<Order[]>(
-            `${environment.url}/orders?status=0&restau-id=${this.auth.restauId()}`,
+            `${environment.url}/orders?status=0`,
             options);
     }
 }

@@ -11,7 +11,7 @@ export class DishesComponent implements OnInit {
     @Input() dishes: Dish[] = [];
     @Input() filteredDishes: Dish[] = [];
     @Input() selectedDishes: Dish[] = [];
-    cardcolor: String = "blue";
+    cardcolor: string = "blue";
     dishname: string = "";
 
     constructor() {

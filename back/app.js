@@ -5,8 +5,8 @@ const app = express();
 const PORT = process.env.PORT;
 const mongoose = require('mongoose');
 const passport = require('passport');
-const restauApi = require('./restaurants/index.js');
 const userApi = require('./users/index.js');
+const restauApi = require('./restaurants/index.js');
 const dishApi = require('./dishes/index');
 const orderApi = require('./orders/index');
 
@@ -17,7 +17,7 @@ mongoose.connect(process.env.DB_URL)
     .then((data) => {
         
         
-        app.use(express.static(path.join(__dirname, 'public')));
+        
         app.use(express.urlencoded({extended: true}));
         app.use(express.json());
         app.use('/api', (req, res, next) => {
@@ -26,9 +26,9 @@ mongoose.connect(process.env.DB_URL)
             res.header('Access-Control-Allow-Methods', '*');
             next();
         });
-        app.get('/', function (req, res) {
-            res.sendFile(path.join(__dirname, 'public/index.html'));
-        });
+        app.use(express.static(path.join(__dirname, 'public')));
+
+        
         app.use('/api/users', userApi);
         app.use(passport.initialize());
         
@@ -36,7 +36,12 @@ mongoose.connect(process.env.DB_URL)
         app.use('/api/orders', orderApi);
         app.use('/api/dishes', dishApi);
 
-
+        app.get('/', function (req, res) {
+            res.sendFile(path.join(__dirname, 'public/index.html'));
+        });
+        app.get('/*', function (req, res) {
+            res.sendFile(path.join(__dirname, 'public/index.html'));
+        });
 
         app.use((err, req, res, next) => {
             console.error(err);

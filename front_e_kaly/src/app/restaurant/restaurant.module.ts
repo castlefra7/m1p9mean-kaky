@@ -18,6 +18,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RestaurantService } from './restaurant.service';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatTableModule} from '@angular/material/table';
     MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
   providers: [FormBuilder, RestaurantService]
 })

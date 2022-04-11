@@ -1,8 +1,10 @@
 <mat-drawer-container class="main-container">
   <mat-drawer position="start" class="main-sidenav" mode="side" opened [style.background]="sidecolor">
+      <p>Client: {{auth.name() | uppercase}}</p>
     <app-selected-dishes [selectedDishes]="selectedDishes"></app-selected-dishes>
   </mat-drawer>
   <mat-drawer-content class="main-content" [style.background]="maincolor">
     <app-dishes [dishes]="dishes" [filteredDishes]="filteredDishes" [selectedDishes]="selectedDishes"></app-dishes>
+    <mat-progress-spinner diameter="50" mode="indeterminate" *ngIf="loading" ></mat-progress-spinner>
   </mat-drawer-content>
 </mat-drawer-container>

@@ -1,10 +1,10 @@
 const User = require('../users/userModel');
 const Order = require('./orderModel');
 
-const findByStatusAndRest = (req, res) => {
+const findByStatusAndRest = (restau_id, req, res) => {
     Order.find({
         'details.status': req.query['status'],
-        'details.restau_id': req.query['restau-id']
+        'details.restau_id': restau_id
     }, function (err, data) {
         if (err) return res.status(400).json({
             "message": err
@@ -14,7 +14,7 @@ const findByStatusAndRest = (req, res) => {
             const status = parseInt(req.query['status']);
             data.forEach(order => {
                 order.details = order.details.filter(value => {
-                    return value.status === status && value.restau_id == req.query['restau-id'];
+                    return value.status === status && value.restau_id == restau_id;
                 });
             });
             res.status(200).send(data);
@@ -58,9 +58,9 @@ const findAll = (req, res) => {
     });
 }
 
-const getProfits = (req, res) => {
+const getProfits = (restau_id, req, res) => {
     Order.find({
-        'details.restau_id': req.query['restau-id']
+        'details.restau_id': restau_id
     }, function (err, data) {
         if (err) return res.status(400).json({
             "message": err
@@ -70,7 +70,7 @@ const getProfits = (req, res) => {
             const seen_dishes = new Set();
             data.forEach(order => {
                 order.details.forEach(detail => {
-                    if (detail.restau_id == req.query['restau-id']) {
+                    if (detail.restau_id == restau_id) {
                         if (seen_dishes.has(detail.dish_id.toString()) == false) {
                             // Schema of a single dish profits
                             seen_dishes.add(detail.dish_id.toString());
@@ -108,6 +108,8 @@ const makeOrder = (req, res) => {
             else if (err) return res.status(404).json(err);
             else {
                 const newOrder = new Order(req.body);
+                console.log(newOrder.details);
+                if(newOrder.details.length == 0) return res.status(400).send({"message": "Spécifier au moins un plat"});
                 newOrder.user_id = user._id;
                 newOrder.fillAmounts();
                 newOrder.save().then((data) => res.status(200).send(data)).catch(err => res.status(500).send(err));

@@ -11,6 +11,7 @@
 
     <div *ngIf="!auth.isLogged()">
         <a mat-button [routerLink]="['/signin']">Se connecter</a>
+        <a mat-button [routerLink]="['/signup']">S'inscrire</a>
     </div>
     
     <div *ngIf="auth.isLogged()">

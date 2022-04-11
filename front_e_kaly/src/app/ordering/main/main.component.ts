@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth.service';
 import { Dish } from '../models/dish.model';
 import { OrderingService } from '../ordering.service';
 export interface Tile {
@@ -17,10 +18,12 @@ export interface Tile {
 export class MainComponent implements OnInit {
     sidecolor = '';
     maincolor = '';
+
+    loading = true;
     dishes: Dish[] = [];
     filteredDishes: Dish[] = [];
     selectedDishes: Dish[] = [];
-    constructor(private orderService: OrderingService) {
+    constructor(private orderService: OrderingService, public auth: AuthService) {
 
     }
 
@@ -31,7 +34,7 @@ export class MainComponent implements OnInit {
                 this.filteredDishes = Object.assign([], v);
             },
             error: (e) => console.error(e),
-            complete: () => console.info('complete')
+            complete: () => this.loading = false
         });
     }
 }
